@@ -1,0 +1,15 @@
+[package]
+name = "frnsc-artifacts"
+version = "0.1.0"
+authors = ["ForensicRS contributors"]
+keywords = ["forensic", "artifacts", "dfir", "cybersecurity"]
+categories = ["data-structures"]
+description = "ForensicArtifacts catalog as static Rust data"
+# The code is MIT; src/generated/ is derived from ForensicArtifacts (Apache-2.0), see NOTICE.
+license = "MIT AND Apache-2.0"
+edition = "2021"
+repository = "https://github.com/ForensicRS/frnsc-artifacts"
+exclude = ["/tools/__pycache__"]
+
+[dependencies]
+forensic-rs = "0.14"
