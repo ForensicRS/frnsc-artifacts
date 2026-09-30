@@ -31,7 +31,7 @@ fn file_paths(def: &ArtifactDefinition) -> Vec<(&str, Separator)> {
 
 #[test]
 fn has_every_upstream_definition() {
-    assert_eq!(DEFINITION_COUNT, 732);
+    assert_eq!(DEFINITION_COUNT, 734);
     assert_eq!(CATALOG.len(), DEFINITION_COUNT);
     assert_eq!(CATALOG.iter().count(), DEFINITION_COUNT);
 }
