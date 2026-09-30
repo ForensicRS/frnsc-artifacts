@@ -22,6 +22,7 @@ pub fn output_artifact(kb_name: &str) -> Option<Artifact> {
         "LinuxMessagesLogFiles" => Some(Artifact::Linux(LinuxArtifacts::Log("messages".to_string()))),
         "LinuxSysLogFiles" => Some(Artifact::Linux(LinuxArtifacts::Log("syslog".to_string()))),
         "LinuxAuditLogs" => Some(Artifact::Linux(LinuxArtifacts::Audit)),
+        "LinuxSystemdJournalLogs" => Some(Artifact::Linux(LinuxArtifacts::Journal)),
         // `RootUserShellHistory` and `ShellHistoryFile` are themselves multi-shell (a `Group`,
         // or an explicit path list spanning bash/fish/sh/zsh) — ambiguous by this function's own
         // rule, so deliberately left unmapped rather than guessing one shell.
@@ -112,6 +113,7 @@ pub const MAPPED_DEFINITIONS: &[&str] = &[
     "LinuxMessagesLogFiles",
     "LinuxSysLogFiles",
     "LinuxAuditLogs",
+    "LinuxSystemdJournalLogs",
     "BashShellHistoryFile",
     "ZShellHistoryFile",
     "FishShellHistoryFile",
