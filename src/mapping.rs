@@ -1,8 +1,8 @@
 //! Which [`Artifact`] a parser reports for a ForensicArtifacts definition.
 
 use forensic_rs::artifact::{
-    Artifact, CommonArtifact, RegistryArtifacts, WebBrowsingArtifact, WindowsArtifacts,
-    WindowsEvents,
+    Artifact, CommonArtifact, LinuxArtifacts, RegistryArtifacts, WebBrowsingArtifact,
+    WindowsArtifacts, WindowsEvents,
 };
 
 /// The output classification for the definition `kb_name`, or `None` where there is no clear one.
@@ -12,6 +12,9 @@ pub fn output_artifact(kb_name: &str) -> Option<Artifact> {
     use WindowsArtifacts as W;
     let windows = |a: WindowsArtifacts| Some(Artifact::Windows(a));
     match kb_name {
+        "LinuxLastlogFile" | "LinuxUtmpFiles" | "LinuxWtmp" | "UnixUtmpFile" => {
+            Some(Artifact::Linux(LinuxArtifacts::Utmp))
+        }
         "WindowsAMCacheHveFile" => windows(W::Registry(R::AmCache)),
         "WindowsAppCompatCache" => windows(W::Registry(R::ShimCache)),
         "WindowsBackgroundActivityModeratorKeys" => windows(W::Registry(R::Bam)),
@@ -38,6 +41,10 @@ pub fn output_artifact(kb_name: &str) -> Option<Artifact> {
 
 /// Every definition name [`output_artifact`] maps.
 pub const MAPPED_DEFINITIONS: &[&str] = &[
+    "LinuxLastlogFile",
+    "LinuxUtmpFiles",
+    "LinuxWtmp",
+    "UnixUtmpFile",
     "WindowsAMCacheHveFile",
     "WindowsAppCompatCache",
     "WindowsBackgroundActivityModeratorKeys",
