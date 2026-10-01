@@ -122,9 +122,12 @@ pub fn output_artifact(kb_name: &str) -> Option<Artifact> {
         "WindowsActivitiesCacheDatabase" => windows(W::Timeline),
         "WindowsUserAccessLogging" => windows(W::UAL),
         "WindowsScheduledTasks" => windows(W::ScheduledTasks),
-        "ChromiumBasedBrowsersHistoryDatabaseFile" | "FirefoxHistory" => Some(Artifact::Common(
-            CommonArtifact::WebBrowsing(WebBrowsingArtifact::BrowserHistory),
-        )),
+        "ChromiumBasedBrowsersHistoryDatabaseFile"
+        | "BraveBrowserHistoryDatabaseFile"
+        | "VivaldiBrowserHistoryDatabaseFile"
+        | "FirefoxHistory" => Some(Artifact::Common(CommonArtifact::WebBrowsing(
+            WebBrowsingArtifact::BrowserHistory,
+        ))),
         _ => None,
     }
 }
@@ -197,5 +200,7 @@ pub const MAPPED_DEFINITIONS: &[&str] = &[
     "WindowsUserAccessLogging",
     "WindowsScheduledTasks",
     "ChromiumBasedBrowsersHistoryDatabaseFile",
+    "BraveBrowserHistoryDatabaseFile",
+    "VivaldiBrowserHistoryDatabaseFile",
     "FirefoxHistory",
 ];
