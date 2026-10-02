@@ -1,11 +1,19 @@
 frnsc-artifacts
 Copyright ForensicRS contributors
 
+This crate's own code is licensed under the MIT License (LICENSE-MIT).
+
 The files under src/generated/ are generated from the ForensicArtifacts
 definitions (https://github.com/ForensicArtifacts/artifacts), licensed under
-the Apache License, Version 2.0
-(https://www.apache.org/licenses/LICENSE-2.0). They are a mechanical
+the Apache License, Version 2.0 (LICENSE-APACHE). They are a mechanical
 translation of artifacts/data/*.yaml into Rust; each generated file names the
 upstream commit it was generated from.
 
 Copyright 2014 The ForensicArtifacts.com Artifact Repository project (see the upstream AUTHORS file).
+
+Modifications: the definitions are generated from a checkout that carries
+local commits on top of upstream, adding definitions upstream doesn't have.
+Every definition added or changed by this project is marked "Added by this
+project" or "Changed by this project" in its generated file, each modified
+file says so in its header, and the full list is LOCAL_DEFINITIONS in
+src/generated/mod.rs.

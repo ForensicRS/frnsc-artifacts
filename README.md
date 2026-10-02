@@ -23,8 +23,12 @@ Parsers don't depend on this crate. They name definitions with `Requirement::art
 
 ## The data
 
-- `src/generated/` holds every definition of the pinned upstream commit (`KB_COMMIT`), one module
+- `src/generated/` holds every definition of the pinned commit (`KB_COMMIT`), one module
   per upstream YAML file, as `const` Rust values. Nothing is read or parsed at run time.
+- The pinned commit is upstream `KB_UPSTREAM_COMMIT` plus local commits that add definitions
+  upstream doesn't have (`LOCAL_DEFINITIONS`). The generator finds them by comparing with the
+  merge base of `HEAD` and `origin/main` (`--upstream` to change it), and marks each one in the
+  generated code.
 - `CATALOG` looks definitions up by name or alias (binary search over a generated, sorted index).
 - `output_artifact(name)` maps a definition to the `forensic_rs::Artifact` a parser reports for it,
   for the definitions where that is unambiguous (`MAPPED_DEFINITIONS`).
@@ -46,5 +50,6 @@ reproducible.
 
 ## License
 
-The crate's code is MIT. `src/generated/` is derived from ForensicArtifacts, which is Apache-2.0;
-see `NOTICE`.
+The crate's code is MIT (`LICENSE-MIT`). `src/generated/` is derived from ForensicArtifacts, which
+is Apache-2.0 (`LICENSE-APACHE`), with the local additions above; see `NOTICE`. Redistributing
+the crate, or a binary built with it, means keeping both license texts and `NOTICE`.

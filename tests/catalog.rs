@@ -10,7 +10,10 @@ use forensic_rs::core::path::FPathBuf;
 use forensic_rs::host_profile::HostProfile;
 use forensic_rs::provenance::{Acquisition, ProvenanceStore, Recovery, SourceKey, Tracked};
 use forensic_rs::traits::registry::windows::UserProfile;
-use frnsc_artifacts::{output_artifact, CATALOG, DEFINITION_COUNT, MAPPED_DEFINITIONS};
+use frnsc_artifacts::{
+    output_artifact, CATALOG, DEFINITION_COUNT, KB_COMMIT, KB_UPSTREAM_COMMIT, LOCAL_DEFINITIONS,
+    MAPPED_DEFINITIONS,
+};
 
 fn get(name: &str) -> &'static ArtifactDefinition {
     CATALOG
@@ -34,6 +37,25 @@ fn has_every_upstream_definition() {
     assert_eq!(DEFINITION_COUNT, 736);
     assert_eq!(CATALOG.len(), DEFINITION_COUNT);
     assert_eq!(CATALOG.iter().count(), DEFINITION_COUNT);
+}
+
+/// The Apache-2.0 notice for the modified definitions: each local one is in the catalog, and the
+/// pin says it is not upstream.
+#[test]
+fn local_definitions_are_listed_against_their_upstream_base() {
+    assert_eq!(
+        LOCAL_DEFINITIONS,
+        [
+            "BraveBrowserHistoryDatabaseFile",
+            "DockerContainerHostConfig",
+            "KubernetesContainerLogSymlinks",
+            "VivaldiBrowserHistoryDatabaseFile",
+        ]
+    );
+    for name in LOCAL_DEFINITIONS {
+        assert!(CATALOG.get(name).is_some(), "{name}");
+    }
+    assert_ne!(KB_COMMIT, KB_UPSTREAM_COMMIT);
 }
 
 #[test]

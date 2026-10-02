@@ -1,7 +1,7 @@
 //! The [ForensicArtifacts](https://github.com/ForensicArtifacts/artifacts) definitions as static
 //! Rust data: where on a host each artifact lives.
 //!
-//! [`CATALOG`] holds every definition of the upstream commit [`KB_COMMIT`], generated into
+//! [`CATALOG`] holds every definition of the commit [`KB_COMMIT`], generated into
 //! `src/generated/` by `tools/gen_catalog.py`. Nothing is read at run time. Hand it to a pipeline
 //! so parsers can resolve the definitions they declare:
 //!
@@ -18,6 +18,9 @@
 //! `Requirement::artifact(..)` from `forensic-rs`, and the pipeline supplies the catalog.
 //! [`output_artifact`] maps a definition to the [`Artifact`](forensic_rs::artifact::Artifact)
 //! a parser reports for it, where that is known.
+//!
+//! [`KB_COMMIT`] is upstream [`KB_UPSTREAM_COMMIT`] plus local commits that add the
+//! [`LOCAL_DEFINITIONS`]. The definitions are Apache-2.0, from ForensicArtifacts; see `NOTICE`.
 
 use std::sync::Arc;
 
@@ -27,7 +30,7 @@ use forensic_rs::catalog::{ArtifactCatalog, SliceCatalog};
 mod generated;
 mod mapping;
 
-pub use generated::{DEFINITION_COUNT, KB_COMMIT, KB_REPO};
+pub use generated::{DEFINITION_COUNT, KB_COMMIT, KB_REPO, KB_UPSTREAM_COMMIT, LOCAL_DEFINITIONS};
 pub use mapping::{output_artifact, MAPPED_DEFINITIONS};
 
 /// Every ForensicArtifacts definition of [`KB_COMMIT`], looked up by name or alias.
